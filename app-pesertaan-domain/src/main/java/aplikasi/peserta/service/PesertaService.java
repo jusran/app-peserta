@@ -13,5 +13,6 @@ import java.util.List;
  */
 public interface PesertaService {
     public Peserta findPesertaByNoKartu(String noKartu);
+    public Peserta findPesertaByNoKartu(String noKartu, int id);
     public List<Peserta> findListPesertaByNip(String nip);
 }
