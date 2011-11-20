@@ -7,11 +7,15 @@ package aplikasi.peserta.service.impl.dummy;
 import aplikasi.peserta.domain.Peserta;
 import aplikasi.peserta.service.PesertaService;
 import aplikasi.peserta.service.impl.error.CustomSQLErrorCodesTranslator;
+import aplikasi.refer.domain.User;
+import aplikasi.refer.service.UserService;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.simple.SimpleJdbcTemplate;
@@ -28,6 +32,9 @@ public class PesertaServiceDao implements PesertaService {
 
     private JdbcTemplate jdbcTemplate = null;
     private SimpleJdbcTemplate simpleJdbcTemplate = null;
+    
+    private static ApplicationContext ctxUser = new ClassPathXmlApplicationContext("classpath:refContext-impl.xml");
+    private static UserService serviceUser = (UserService) ctxUser.getBean("userServiceDao");
 
     @Autowired
     public void setDataSource(final DataSource dataSource) {
@@ -57,6 +64,17 @@ public class PesertaServiceDao implements PesertaService {
         String sql = "select a.nokapst, a.nmpst, a.pisapst, a.tgllhrpst, a.jkpst from datnkapst a where a.dpsnip1=?";
         List<Peserta> pst = simpleJdbcTemplate.query(sql, new PesertaRowMapper(), nip);
         return pst;
+    }
+
+    @Override
+    public Peserta findPesertaByNoKartu(String noKartu, int id) {
+        
+        User user = serviceUser.findUserById(id);
+        if (user == null) {
+            return null;
+        } else {
+            return findPesertaByNoKartu(noKartu);            
+        }
     }
 
     private class PesertaRowMapper implements RowMapper<Peserta> {

@@ -19,6 +19,23 @@
             <version>0.1.1-SNAPSHOT</version>
         </dependency>
         
+        <dependency>
+            <groupId>aplikasi-refer</groupId>
+            <artifactId>app-refer-domain</artifactId>
+            <version>0.1.1-SNAPSHOT</version>
+            <type>jar</type>
+        </dependency>
+        <dependency>
+            <groupId>aplikasi-refer</groupId>
+            <artifactId>app-refer-config</artifactId>
+            <version>0.1.1-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>aplikasi-refer</groupId>
+            <artifactId>app-refer-service</artifactId>
+            <version>0.1.1-SNAPSHOT</version>
+        </dependency>
+        
         <!-- Base64 -->
         <dependency>
             <groupId>org.springframework.security</groupId>
