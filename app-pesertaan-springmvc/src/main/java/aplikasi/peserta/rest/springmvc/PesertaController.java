@@ -31,19 +31,19 @@ public class PesertaController {
 
     private static ApplicationContext ctx = new ClassPathXmlApplicationContext("classpath:pstContext-impl.xml");
     private static PesertaService service = (PesertaService) ctx.getBean("pesertaServiceDao");
-
+    
     @ExceptionHandler(IOException.class)
     public String handleIOException(IOException ex, HttpServletRequest request) {
         return ClassUtils.getShortName(ex.getClass());
     }
     
-    @RequestMapping(value = "/{noKartu}", method = RequestMethod.GET)
+    @RequestMapping(value = "/{noKartu}/user/{id}", method = RequestMethod.GET)
     @ResponseBody
-    public ResponseEntity<Peserta> getPesertaByNoKartu(@PathVariable String noKartu) {
+    public ResponseEntity<Peserta> getPesertaByNoKartu(@PathVariable String noKartu, @PathVariable int id) {
         ResponseEntity<Peserta> entity = null;
 
         try {
-            Peserta p = service.findPesertaByNoKartu(noKartu);
+            Peserta p = service.findPesertaByNoKartu(noKartu, id);
             if (p != null) {
                 entity = new ResponseEntity<Peserta>(p, HttpStatus.OK);                
             } else {
